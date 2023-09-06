@@ -1,0 +1,30 @@
+ghclone() {
+  if [ $# -ne 1 ]; then
+    echo -e "${Yellow}Use: ghclone <USER/REPO>${NC}"
+    return 1
+  fi
+  local repo_url="https://github.com/$1"
+  local repo_name="$(basename $1)"
+
+  git clone $repo_url $repo_name
+}
+
+ghcommit() {
+  if [ $# -ne 1 ]; then
+    echo -e "${Yellow}Use: ghcommit <MESSAGE>${NC}"
+    return 1
+  fi
+  local commit_message="$(basename $1)"
+
+  git commit -m "$commit_message"
+}
+
+ghadd() {
+  if [ $# -ne 1 ]; then
+    echo -e "${Yellow}Use: ghadd <DIR_HERE>${NC}"
+    return 1
+  fi
+  local gitadd_files="$(basename $1)"
+
+  git add $gitadd_files
+}

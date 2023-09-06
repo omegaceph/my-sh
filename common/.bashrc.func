@@ -1,0 +1,13 @@
+chx() {
+  if [ $# -ne 1 ]; then
+    echo -e "${Yellow}${Bold}Use: chx FILE${NC}"
+    return 1
+  fi
+  local file_name="$(basename $1)"
+
+  chmod +x $file_name
+}
+
+iptl() {
+  iptables -L -n -v --line-numbers
+}
