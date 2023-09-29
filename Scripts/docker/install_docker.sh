@@ -7,6 +7,7 @@ installdocker() {
     if [[ $install_docker == [Yy] ]]; then
         printf "\n\e${White}${InvertColors}Starting Docker Installation${NC}\n"
         sudo apt install docker.io -y
+        sudo apt install docker-compose -y
         printf "\e\a\n${Yellow}${Bold}You need to do post installation configuration of docker${InvertColors}${NC}\n"
         sleep 2
     else
