@@ -12,16 +12,13 @@ Firewall() {
         sudo iptables -t nat -F
         sudo iptables -t nat -X
         
-        # Extract IP and gateway address from interfaces
-        ipv4=$(cat /etc/network/interfaces | grep -Po "address \K[\d./]+")
-        ip_gw=$(cat /etc/network/interfaces | grep -Po "gateway \K[\d.]+")
         
-        # The complete command takes an IPv4 address, removes the trailing part (the last group of digits) and replaces it with "0".
-        ipv4_address=$(echo $ipv4 | sed -E 's/([0-9]+\.[0-9]+\.[0-9]+\.)[0-9]+/\10/')
         
         # Setting default policy to DROP (block all by default)
         sudo iptables -P INPUT DROP
         sudo iptables -P FORWARD DROP
+        
+        # Settings default policy to ACCEPT (accept all by default)
         sudo iptables -P OUTPUT ACCEPT
         
         # Allow loopback traffic (localhost)
@@ -47,15 +44,24 @@ Firewall() {
         # Allow related and established packages
         sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
         
+        # Allow new and established packages
+        #sudo iptables -A INPUT -m state --state NEW,ESTABLISHED -j ACCEPT
+        
         # Nmap scan log
         sudo iptables -A INPUT -p tcp --tcp-flags SYN,ACK SYN,ACK -m limit --limit 1/s -j LOG --log-prefix "NMAP SCAN: "
         #sudo iptables -A INPUT -p tcp --tcp-flags SYN,ACK SYN,ACK -j DROP
         
-        sudo iptables -L -n -v --line-numbers
-        printf "\e\n${Bold}Press enter to continue...${NC}"
-        read
+        Firewall_List_All_Rule
     else
         printf "\e\n${Bold}Config firewall rules canceled...${NC}\n"
+        Firewall_List_All_Rule
     fi
 }
+
+Firewall_List_All_Rule(){
+    sudo iptables -L -n -v --line-numbers
+    printf "\e\n${Bold}Press ENTER to continue...${NC}"
+    read
+}
+
 Firewall

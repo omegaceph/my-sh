@@ -1,4 +1,4 @@
-chx() {
+chmodx() {
   if [ $# -ne 1 ]; then
     echo -e "${Yellow}${Bold}Use: chx FILE${NC}"
     return 1

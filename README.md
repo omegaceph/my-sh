@@ -37,11 +37,8 @@ firewall configuration come from the network settings.</s>
 ## 📝TODO
 * If docker is not installed do not run docker post install script.
 * file: configure_firewall
-<<<<<<< HEAD
   * Check if firewall rules exist. part of command (example) grep -- "-A FORWARD -j DOCKER-USER"*
-=======
   * Check if firewall rules exist. (example) grep -- "-A FORWARD -j DOCKER-USER"
->>>>>>> fea3498b260a0a6c14f74b5f7a832350a38b6c27
 * file: configure_interfaces
   * Add more configuration options in the interfaces file
     * Add options for configuring IP, NETMASK, GATEWAY, BROADCAST... etc

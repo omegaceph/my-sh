@@ -16,10 +16,13 @@ if [[ "$conf_network" == [yY] ]]; then
     cat /etc/network/interfaces
     
     printf "\n\e${White}${InvertColors}/etc/resolv.conf${NC}\n"
-    cat /etc/resolv.conf
+    cat $resolv_conf_file
+    
+    printf "\e\n${Bold}Press ENTER to continue...${NC}"
+    read
     
     source ./Functions/network/validade_ipv4_netmask.sh
-    source ./Functions/network/validate_ip_gateway.sh
+    source ./Functions/network/validate_ip.sh
     source ./Functions/network/configure_interfaces.sh
     source ./Functions/network/configure_resolv.sh
 fi
@@ -28,5 +31,5 @@ source ./Scripts/firewall/configure_firewall.sh
 source ./Scripts/docker/install_docker.sh
 source ./Scripts/kubernetes/install_kubernetes.sh
 source ./Scripts/essential_tools/iptables-persistent.sh
-source ./Scripts/essential_tools/tricks.sh
+source ./Scripts/essential_tools/tuneup_unix.sh
 source ./Scripts/docker/post_installation_docker.sh

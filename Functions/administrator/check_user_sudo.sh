@@ -1,8 +1,6 @@
 #!/bin/bash
 
 check_user_in_sudoers() {
-    local sudoers_file=/etc/sudoers
-    
     local line_found=$(grep -P "^$USER\s+" $sudoers_file)
     
     if [ -n "$line_found" ]; then
@@ -14,7 +12,10 @@ check_user_in_sudoers() {
         if [[ $add_user_to_sudoers == [Yy] ]]; then
             echo -e "$USER ALL=(ALL:ALL) ALL" >> $sudoers_file
         fi
-        cat $sudoers_file | more
+        cat $sudoers_file
+        printf "\e\n${Bold}Press ENTER to continue... ${NC}\n"
+        read
     fi
 }
+
 check_user_in_sudoers
